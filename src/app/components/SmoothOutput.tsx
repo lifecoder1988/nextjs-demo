@@ -74,14 +74,14 @@ export default function SmoothOutput({
 
   // 根据fullInput长度计算动态速度：文本越长，输出越快
   const calculateSpeed = useCallback(() => {
-    const inputLength = fullInput.length;
-    //const inputLength = input.length - output.length;
-    if (inputLength <= 50) {
+    //const inputLength = fullInput.length;
+    const deltaLength = input.length - output.length;
+    if (deltaLength <= 50) {
       // 短文本：保持基础速度
       return baseSpeed;
-    } else if (inputLength <= 200) {
+    } else if (deltaLength <= 200) {
       // 中等文本：线性增加速度
-      const ratio = (inputLength - 50) / 150; // 0-1之间
+      const ratio = (deltaLength - 50) / 150; // 0-1之间
       return baseSpeed * (1 + ratio * (speedMultiplier - 1));
     } else {
       // 长文本：使用最大速度
