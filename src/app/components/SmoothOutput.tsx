@@ -75,6 +75,7 @@ export default function SmoothOutput({
   // 根据fullInput长度计算动态速度：文本越长，输出越快
   const calculateSpeed = useCallback(() => {
     const inputLength = fullInput.length;
+    //const inputLength = input.length - output.length;
     if (inputLength <= 50) {
       // 短文本：保持基础速度
       return baseSpeed;
@@ -88,7 +89,7 @@ export default function SmoothOutput({
     }
   }, [fullInput.length, baseSpeed, speedMultiplier]);
 
-  // 动画循环
+  // 动画循环 - 优化版本，支持高速输出
   const animate = useCallback((currentTime: number) => {
     if (lastTimeRef.current === 0) {
       lastTimeRef.current = currentTime;
@@ -101,11 +102,22 @@ export default function SmoothOutput({
     const currentSpeed = calculateSpeed();
     const intervalMs = 1000 / currentSpeed; // 每个字符的间隔时间
 
-    if (accumulatedTimeRef.current >= intervalMs && currentIndex < fullInput.length) {
-      const newOutput = output + fullInput[currentIndex];
+    // 计算本帧应该输出的字符数量
+    let charactersToOutput = 0;
+    let tempAccumulated = accumulatedTimeRef.current;
+    
+    while (tempAccumulated >= intervalMs && (currentIndex + charactersToOutput) < fullInput.length) {
+      charactersToOutput++;
+      tempAccumulated -= intervalMs;
+    }
+
+    // 批量输出字符
+    if (charactersToOutput > 0) {
+      const newIndex = Math.min(currentIndex + charactersToOutput, fullInput.length);
+      const newOutput = fullInput.slice(0, newIndex);
       setOutput(newOutput);
-      setCurrentIndex(prev => prev + 1);
-      accumulatedTimeRef.current = 0;
+      setCurrentIndex(newIndex);
+      accumulatedTimeRef.current = tempAccumulated;
       
       if (onChange) {
         onChange(newOutput);
@@ -118,7 +130,7 @@ export default function SmoothOutput({
     } else if (currentIndex >= fullInput.length && onComplete && !isAppendingRef.current && !isInterrupted) {
       onComplete();
     }
-  }, [currentIndex, fullInput, calculateSpeed, onComplete]);
+  }, [currentIndex, fullInput, calculateSpeed, onComplete, onChange]);
 
   // 处理input变化：区分重置和追加
   useEffect(() => {
@@ -222,11 +234,11 @@ export function SmoothOutputDemo() {
 
   // 计算当前速度
   const calculateCurrentSpeed = () => {
-    const inputLength = inputText.length;
-    if (inputLength <= 50) {
+    const deltaLength = inputText.length - currentOutput.length;
+    if (deltaLength <= 50) {
       return baseSpeed;
-    } else if (inputLength <= 200) {
-      const ratio = (inputLength - 50) / 150;
+    } else if (deltaLength <= 200) {
+      const ratio = (deltaLength - 50) / 150;
       return baseSpeed * (1 + ratio * (speedMultiplier - 1));
     } else {
       return baseSpeed * speedMultiplier;
@@ -276,7 +288,7 @@ export function SmoothOutputDemo() {
             <input
               type="range"
               min="1.5"
-              max="5"
+              max="10"
               step="0.5"
               value={speedMultiplier}
               onChange={(e) => setSpeedMultiplier(Number(e.target.value))}
