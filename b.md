@@ -165,6 +165,6 @@
 [^1]: [管理层访谈(1).docx](ushu-Wnr6PQO4://filemanager/view?fs_appid=&scope=&timestamp=&nonce_str=&fileid=e63f196e6e7341369ec8e16170ccc946&signature=&file_ext=docx)
 [^2]: [Luke总再次交流.docx](ushu-Wnr6PQO4://filemanager/view?fs_appid=&scope=&timestamp=&nonce_str=&fileid=432d7b564ce848b988d2b8b98b1b94ed&signature=&file_ext=docx)
 [^3]: [竞品_reelshorts(1).docx](ushu-Wnr6PQO4://filemanager/view?fs_appid=&scope=&timestamp=&nonce_str=&fileid=81baf9dbceed48ed855356e32cdad4ca&signature=&file_ext=docx)
-[^4]: [IC Presentation_[Shortmax]_[20241226]_GLVC_vsent_nomip.pdf](ushu-Wnr6PQO4://filemanager/view?fs_appid=&scope=&timestamp=&nonce_str=&fileid=73ac31f7748d4e5687d960cae8b2ec40&signature=&file_ext=pdf)
+[^4]: [IC Presentation\_\[Shortmax\]\_\[20241226\]_GLVC_vsent_nomip.pdf](ushu-Wnr6PQO4://filemanager/view?fs_appid=&scope=&timestamp=&nonce_str=&fileid=73ac31f7748d4e5687d960cae8b2ec40&signature=&file_ext=pdf)
 [^5]: [初次见面(1).docx](ushu-Wnr6PQO4://filemanager/view?fs_appid=&scope=&timestamp=&nonce_str=&fileid=6cc4fcff413c4008adfac3d0842327f4&signature=&file_ext=docx)
 [^6]: [再次交流with金龙(1).docx](ushu-Wnr6PQO4://filemanager/view?fs_appid=&scope=&timestamp=&nonce_str=&fileid=5437771a52024434be59f6a1ca288150&signature=&file_ext=docx)
